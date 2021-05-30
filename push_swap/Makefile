@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/27 13:07:50 by grivalan          #+#    #+#              #
-#    Updated: 2021/05/29 18:41:24 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/05/30 19:29:54 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS =		src/main.c\
 			src/ft_bzero.c\
 			src/ft_strlen.c\
 			src/ft_isdigit.c\
+			src/ft_memcpy.c\
 			src/ft_memset.c\
 			src/ft_abs.c\
 

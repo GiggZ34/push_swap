@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:18:12 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/29 15:44:40 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/30 19:34:45 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ static void	clear_list(t_number **begin)
 	*begin = NULL;
 }
 
-void	trash_program(t_push_swap *p, int error_code, const char *msg)
+int	trash_program(t_push_swap *p, int error_code, const char *msg)
 {
-	clear_list(&(p->first_one));
-	clear_list(&(p->first_two));
+	clear_list(&(p->a));
+	clear_list(&(p->b));
 	free(p->action);
 	free(p->min);
 	free(p->max);
@@ -40,4 +40,5 @@ void	trash_program(t_push_swap *p, int error_code, const char *msg)
 		write(2, msg, ft_strlen(msg));
 	}
 	exit(0);
+	return (-1);
 }

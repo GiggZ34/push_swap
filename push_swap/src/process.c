@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:06:20 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/29 16:30:27 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/30 20:01:26 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ static int	check_2_to_1(t_push_swap *p)
 	t_number	*lst2;
 	int			n;
 
-	n = p->first_one->n;
-	lst2 = p->first_two;
-	while (lst2)
+	if (p->a)
 	{
-		if (lst2->n > n)
-			return (0);
-		lst2 = lst2->next;
+		n = p->a->n;
+		lst2 = p->b;
+		while (lst2)
+		{
+			if (lst2->n > n)
+				return (0);
+			lst2 = lst2->next;
+		}
 	}
 	return (1);
 }
@@ -71,12 +74,12 @@ static int	check_list(t_push_swap *p)
 	int	size_lst1;
 	int	size_lst2;
 
-	size_lst1 = listsize(p->first_one);
-	size_lst2 = listsize(p->first_two);
+	size_lst1 = listsize(p->a);
+	size_lst2 = listsize(p->b);
 	if (!size_lst2)
 	{
 		p->dir = 0;
-		return (check_sort(p->first_one));
+		return (check_sort(p->a));
 	}
 	else if (!size_lst1)
 	{
@@ -88,24 +91,31 @@ static int	check_list(t_push_swap *p)
 
 void	process(t_push_swap *p)
 {
+	p->nub_numbers = listsize(p->a);
 	while (!check_list(p))
 	{
-		if (check_sort(p->first_one) && check_asort(p->first_two) \
+		if (check_sort(p->a) && check_asort(p->b) \
 			&& check_2_to_1(p))
 		{
-			while (p->first_two)
-				switch_number(p, &p->first_two, &p->first_one, 'a');
+			while (p->b)
+			{
+				switch_number(p, &p->b, &p->a, 'a');
+			}
 		}
 		else
 		{
 			ft_memset(p->action, CHAR_MAX, sizeof(int) * 4);
-			if (p->first_one)
-				p->first_one->last = last_list(p->first_one);
-			if (p->first_two)
-				p->first_two->last = last_list(p->first_two);
+			if (p->a)
+				p->a->last = last_list(p->a);
+			if (p->b)
+				p->b->last = last_list(p->b);
+			if (p->a && p->a->next)
+				p->a->next->last = p->a->last;
+			if (p->b && p->b->next)
+				p->b->next->last = p->b->last;
 			treatment_list(p);
 		}
-	// print_lst(p->first_one, p->first_two);
+	// print_lst(p->a, p->b);
 	}
-	// print_lst(p->first_one, p->first_two);
+	 print_lst(p->a, p->b);
 }

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 13:03:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/29 17:50:57 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/30 20:04:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ static int	search_location(t_push_swap *p, int n)
 	t_number	*lst;
 	int			id;
 
-	lst = p->first_two;
+	lst = p->b;
 	id = 1;
-	if (lst->n < n && lst->last->n > n)
+	if (lst && lst->n < n && lst->last->n > n)
 		return (0);
 	else if (p->max[1] && n > p->max[1]->n)
-		return (search_number(p->first_two, p->max[1]->n));
+		return (search_number(p->b, p->max[1]->n));
 	else if (p->min[1] && n < p->min[1]->n)
-		return (search_number(p->first_two, p->min[1]->n) + 1);
+		return (search_number(p->b, p->min[1]->n) + 1);
 	while (lst && lst->next && !(lst->n > n && lst->next->n < n))
 	{
 		id++;
@@ -69,20 +69,107 @@ int	generate_actions(t_push_swap *p)
 {
 	int	count_lst;
 
-	if (p->first_one)
+	if (p->a)
 	{
-		count_lst = listsize(p->first_two);
-		p->action[R] = search_location(p, p->first_one->n);
+		count_lst = listsize(p->b);
+		p->action[R] = search_location(p, p->a->n);
 		p->action[RR] = count_lst - p->action[R];
-		if (p->first_one && p->first_one->next)
+		if (p->a && p->a->next)
 		{
-			p->action[SR] = search_location(p, p->first_one->next->n) + 1;
+			p->action[SR] = search_location(p, p->a->next->n) + 1;
 			p->action[SRR] = count_lst - p->action[SR] + 2;
 		}
 		return (smaller_number(p->action, NBR_ACTION));
 	}
 	asort_test(p);
-//	print_lst(p->first_one, p->first_two);
 	trash_program(p, ERROR, "DEAD\n");
+	return (0);
+}
+
+int	define_actions(int *actions, int *total, int *move_a, int *move_b)
+{
+	int	dir;
+
+	if (total[RR] < total[R])
+		dir = RR;
+	else
+		dir = R;
+	if (actions[TOTAL] >= 0 && actions[TOTAL] <= total[dir])
+		return (0);
+	actions[TOTAL] = total[dir];
+	actions[DIR_A] = move_a[0];
+	actions[NB_A] = move_a[1];
+	actions[DIR_B] = move_b[0];
+	actions[NB_B] = move_b[1];
+	return (0);
+}
+
+int	search_move_b(t_push_swap *p, t_number *a, int *actions, int *move_a)
+{
+	int	total[2];
+	int	move_b[2];
+	int	count_lst;
+	int	dir;
+
+	if (move_a[0] == R)
+		dir = RR;
+	else
+		dir = R;
+	if (a)
+	{
+		count_lst = listsize(p->b);
+		move_b[R] = search_location(p, a->n);
+		total[R] = move_b[R];
+		move_b[RR] = count_lst - move_b[R];
+		total[RR] = move_b[RR];
+		total[dir] += move_a[1];
+		return (define_actions(actions, total, move_a, move_b));
+	}
+	return (trash_program(p, ERROR, "Program failed\n"));
+}
+
+t_number	*traitement_list(t_push_swap *p, t_number *n, int dir)
+{
+	t_number	*tmp;
+
+	tmp = n;
+	if (dir == R)
+		n = n->next;
+	else
+		n = n->previous;
+	n->last = p->last_a;
+	return (n);
+}
+
+void	search_move(t_push_swap *p, int *tmp_actions)
+{
+	t_number	*a;
+	int			move_a[2];
+
+	a = p->a;
+	move_a[0] = R;
+	move_a[1] = -1;
+	while (a && ((tmp_actions[TOTAL] < 0 || move_a[1] < tmp_actions[TOTAL]) || move_a[0] != RR))
+	{
+		if (++move_a[1] >= tmp_actions[TOTAL] && tmp_actions[TOTAL] > 0 && move_a[0] == R)
+		{
+			a = p->a;
+			move_a[1] = 0;
+			move_a[0] = RR;
+		}
+		search_move_b(p, a, tmp_actions, move_a);
+		a = traitement_list(p, a, move_a[0]);
+		printf("i = %d\n", move_a[1]);
+		printf("-- %d -- %d ==> %d || %d ==> %d\n", tmp_actions[0], tmp_actions[1], tmp_actions[2], tmp_actions[3], tmp_actions[4]);
+	}
+}
+
+int	search_actions(t_push_swap *p)
+{
+	int	tmp_actions[5];
+
+	ft_memset(tmp_actions, -1, sizeof(int) * 5);
+	search_move(p, tmp_actions);
+//	trash_program(p, ERROR, "test\n");
 	return (0);
 }

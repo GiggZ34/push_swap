@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/29 18:40:44 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/30 19:36:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ typedef struct s_push_swap
 	int			*action;
 	t_number	**max;
 	t_number	**min;
-	t_number	*first_one;
-	t_number	*first_two;
+	t_number	*a;
+	t_number	*b;
+	t_number	*last_a;
+	t_number	*last_b;
+	int			nub_numbers;
 	int			dir;
 }t_push_swap;
 
@@ -41,6 +44,15 @@ typedef enum e_error_code
 	SUCCESS,
 	ERROR
 }t_error_code;
+
+typedef enum e_actions_tab
+{
+	TOTAL,
+	DIR_A,
+	NB_A,
+	DIR_B,
+	NB_B
+}t_actions_tab;
 
 typedef enum e_action
 {
@@ -53,11 +65,12 @@ typedef enum e_action
 int			numbers_to_list(t_push_swap *p, char **tab, int n);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memset(void *b, int c, size_t len);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
 int			ft_isdigit(int c);
 size_t		ft_strlen(const char *s);
 void		*ft_calloc(size_t count, size_t size);
 double		ft_abs(double n);
-void		trash_program(t_push_swap *p, int error_code, const char *msg);
+int			trash_program(t_push_swap *p, int error_code, const char *msg);
 int			switch_number(t_push_swap *p, t_number **l1, t_number **l2, char c);
 void		first_to_last(t_number **begin, const char *cmd);
 void		last_to_first(t_number **begin, const char *cmd);
@@ -74,5 +87,6 @@ int			treatment_list(t_push_swap *p);
 
 void		print_lst(t_number *l1, t_number *l2);
 void	asort_test(t_push_swap *p);
+int	search_actions(t_push_swap *p);
 
 #endif

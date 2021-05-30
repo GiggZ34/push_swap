@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:29:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/28 17:55:56 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/30 18:09:30 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	add_list(t_push_swap *p, int n)
 	if (!number)
 		trash_program(p, ERROR, "Allocation failed\n");
 	number->n = n;
-	check_duplicate(p, p->first_one, number);
-	list_add_back(&(p->first_one), number);
+	check_duplicate(p, p->a, number);
+	list_add_back(&(p->a), number);
 }
 
 static int	is_number(char *str)

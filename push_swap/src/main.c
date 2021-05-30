@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/29 15:53:39 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/30 18:56:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **args)
 	t_push_swap	push_swap;
 
 	ft_bzero(&push_swap, sizeof(t_push_swap));
-	push_swap.action = ft_calloc(sizeof(int), 4);
+	push_swap.action = ft_calloc(sizeof(int), 5);
 	push_swap.max = ft_calloc(sizeof(t_number *), 3);
 	push_swap.min = ft_calloc(sizeof(t_number *), 3);
 	if (!push_swap.action || !push_swap.max || !push_swap.min)
