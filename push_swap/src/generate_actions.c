@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 13:03:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/30 20:04:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/30 20:40:59 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int	define_actions(int *actions, int *total, int *move_a, int *move_b)
 	actions[TOTAL] = total[dir];
 	actions[DIR_A] = move_a[0];
 	actions[NB_A] = move_a[1];
-	actions[DIR_B] = move_b[0];
-	actions[NB_B] = move_b[1];
+	actions[DIR_B] = dir;
+	actions[NB_B] = move_b[dir];
 	return (0);
 }
 
@@ -149,9 +149,9 @@ void	search_move(t_push_swap *p, int *tmp_actions)
 	a = p->a;
 	move_a[0] = R;
 	move_a[1] = -1;
-	while (a && ((tmp_actions[TOTAL] < 0 || move_a[1] < tmp_actions[TOTAL]) || move_a[0] != RR))
+	while (a && ((tmp_actions[TOTAL] < 0 || move_a[1] < tmp_actions[TOTAL]) && move_a[0] != RR))
 	{
-		if (++move_a[1] >= tmp_actions[TOTAL] && tmp_actions[TOTAL] > 0 && move_a[0] == R)
+		if (++move_a[1] >= tmp_actions[TOTAL] && tmp_actions[TOTAL] >= 0 && move_a[0] == R)
 		{
 			a = p->a;
 			move_a[1] = 0;
@@ -160,7 +160,9 @@ void	search_move(t_push_swap *p, int *tmp_actions)
 		search_move_b(p, a, tmp_actions, move_a);
 		a = traitement_list(p, a, move_a[0]);
 		printf("i = %d\n", move_a[1]);
-		printf("-- %d -- %d ==> %d || %d ==> %d\n", tmp_actions[0], tmp_actions[1], tmp_actions[2], tmp_actions[3], tmp_actions[4]);
+		printf("-- %d -- %d ==> %d || %d ==> %d\n", tmp_actions[TOTAL], tmp_actions[DIR_A], tmp_actions[NB_A], tmp_actions[DIR_B], tmp_actions[NB_B]);
+		if (!tmp_actions[TOTAL])
+			return ;
 	}
 }
 
@@ -170,6 +172,8 @@ int	search_actions(t_push_swap *p)
 
 	ft_memset(tmp_actions, -1, sizeof(int) * 5);
 	search_move(p, tmp_actions);
-//	trash_program(p, ERROR, "test\n");
+	ft_memcpy(p->action, tmp_actions, sizeof(int) * 5);
+		printf("-- %d -- %d ==> %d || %d ==> %d\n", p->action[TOTAL], p->action[DIR_A], p->action[NB_A], p->action[DIR_B], p->action[NB_B]);
+	trash_program(p, ERROR, "test\n");
 	return (0);
 }
