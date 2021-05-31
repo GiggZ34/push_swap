@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/30 19:36:04 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 20:07:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdio.h>
-# define NBR_ACTION 4
+# define NB_LST 2
 
 typedef struct s_number
 {
 	struct s_number	*next;
 	struct s_number	*previous;
-	struct s_number	*last;
 	int				n;
 }t_number;
 
@@ -33,10 +32,7 @@ typedef struct s_push_swap
 	t_number	**min;
 	t_number	*a;
 	t_number	*b;
-	t_number	*last_a;
-	t_number	*last_b;
-	int			nub_numbers;
-	int			dir;
+	int			*nb_numbers;
 }t_push_swap;
 
 typedef enum e_error_code
@@ -62,6 +58,12 @@ typedef enum e_action
 	SRR
 }t_action;
 
+typedef enum e_lst
+{
+	A,
+	B
+}t_lst;
+
 int			numbers_to_list(t_push_swap *p, char **tab, int n);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memset(void *b, int c, size_t len);
@@ -69,24 +71,22 @@ void		*ft_memcpy(void *dst, const void *src, size_t n);
 int			ft_isdigit(int c);
 size_t		ft_strlen(const char *s);
 void		*ft_calloc(size_t count, size_t size);
-double		ft_abs(double n);
+int			ft_abs(int n);
 int			trash_program(t_push_swap *p, int error_code, const char *msg);
 int			switch_number(t_push_swap *p, t_number **l1, t_number **l2, char c);
 void		first_to_last(t_number **begin, const char *cmd);
 void		last_to_first(t_number **begin, const char *cmd);
-t_number	*before_last_list(t_number *lst);
-t_number	*last_list(t_number *lst);
+int			search_number(t_number *list, int n);
+t_number	*last_list(t_push_swap *p, t_number *lst, int num_lst);
 void		swap(t_number **begin, const char *cmd);
 void		list_add_front(t_number **begin, t_number *new);
-void		list_add_back(t_number **begin, t_number *new);
-int			listsize(t_number *lst);
+void		list_add_back(t_push_swap *p, t_number **b, t_number *new, int lst);
 long		ft_atoi(const char *str);
-int			generate_actions(t_push_swap *p);
+int			search_actions(t_push_swap *p);
 void		process(t_push_swap *p);
 int			treatment_list(t_push_swap *p);
+int			asort_list_b(t_push_swap *p);
 
-void		print_lst(t_number *l1, t_number *l2);
-void	asort_test(t_push_swap *p);
-int	search_actions(t_push_swap *p);
+void		print_lst(t_push_swap *p);
 
 #endif

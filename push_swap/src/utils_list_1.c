@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:20:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/30 18:09:35 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 19:51:27 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ int	switch_number(t_push_swap *p, t_number **l1, t_number **l2, char c)
 	i = c - 'a';
 	if (!p->max[i] || p->max[i]->n < number->n)
 		p->max[i] = number;
-	else if (!p->min[i] || p->min[i]->n > number->n)
+	if (!p->min[i] || p->min[i]->n > number->n)
 		p->min[i] = number;
 	*l1 = number->next;
 	list_add_front(l2, number);
+	p->nb_numbers[i]++;
+	i = ft_abs(i - 1);
+	p->nb_numbers[i]--;
 	write(1, "p", 1);
 	write(1, &c, 1);
 	write(1, "\n", 1);
@@ -33,42 +36,12 @@ int	switch_number(t_push_swap *p, t_number **l1, t_number **l2, char c)
 
 void	first_to_last(t_number **begin, const char *cmd)
 {
-	t_number	*first;
-
-	first = (*begin);
-	(*begin) = (*begin)->next;
-	list_add_back(begin, first);
+	*begin = (*begin)->next;
 	write(1, cmd, ft_strlen(cmd));
 }
 
 void	last_to_first(t_number **begin, const char *cmd)
 {
-	t_number	*last;
-	t_number	*before_last;
-
-	last = last_list(*begin);
-	before_last = before_last_list(*begin);
-	before_last->next = NULL;
-	list_add_front(begin, last);
+	*begin = (*begin)->previous;
 	write(1, cmd, ft_strlen(cmd));
-}
-
-t_number	*before_last_list(t_number *lst)
-{
-	while (lst->next->next)
-		lst = lst->next;
-	return (lst);
-}
-
-int	listsize(t_number *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		i++;
-		lst = lst->next;
-	}
-	return (i);
 }

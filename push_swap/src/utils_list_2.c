@@ -6,15 +6,20 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:20:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/30 18:09:36 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 19:54:44 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_number	*last_list(t_number *lst)
+t_number	*last_list(t_push_swap *p, t_number *lst, int num_lst)
 {
-	while (lst->next)
+	int	i;
+
+	if (!lst)
+		return (NULL);
+	i = -1;
+	while (++i < p->nb_numbers[num_lst] - 1)
 		lst = lst->next;
 	return (lst);
 }
@@ -28,36 +33,51 @@ void	swap(t_number **begin, const char *cmd)
 	n2 = n1->next;
 	n1->next = n2->next;
 	n1->previous = n2;
+	n2->previous = n1->previous;
 	n2->next = n1;
-	n2->previous = n1->last;
 	*begin = n2;
 	write(1, cmd, ft_strlen(cmd));
 }
 
 void	list_add_front(t_number **begin, t_number *new)
 {
-	new->next = *begin;
 	if (*begin)
 	{
-		new->last = new->next->last;
-		new->previous = new->last;
+		new->next = *begin;
+		new->previous = (*begin)->previous;
+		(*begin)->previous = new;
 	}
 	*begin = new;
 }
 
-void	list_add_back(t_number **begin, t_number *new)
+void	list_add_back(t_push_swap *p, t_number **b, t_number *new, int num_lst)
 {
 	t_number	*lst;
+	int			i;
 
-	new->next = NULL;
-	lst = *begin;
+	i = -1;
+	lst = *b;
 	if (!lst)
-		*begin = new;
+		*b = new;
 	else
 	{
-		while (lst->next)
+		while (++i < p->nb_numbers[num_lst] - 1)
 			lst = lst->next;
-		new->previous = lst;
 		lst->next = new;
+		new->previous = lst;
+		new->next = *b;
 	}
+}
+
+int	search_number(t_number *list, int n)
+{
+	int	id;
+
+	id = 0;
+	while (list && list->n != n)
+	{
+		list = list->next;
+		id++;
+	}
+	return (id);
 }

@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 13:18:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/29 18:41:45 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 19:25:37 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-double	ft_abs(double n)
+int	ft_abs(int n)
 {
 	if (n < 0)
 		n *= -1;

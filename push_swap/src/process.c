@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:06:20 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/30 20:37:44 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 20:04:19 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ static int	check_2_to_1(t_push_swap *p)
 {
 	t_number	*lst2;
 	int			n;
+	int			i;
 
 	if (p->a)
 	{
 		n = p->a->n;
 		lst2 = p->b;
-		while (lst2)
+		i = -1;
+		while (++i < p->nb_numbers[B])
 		{
 			if (lst2->n > n)
 				return (0);
@@ -31,15 +33,17 @@ static int	check_2_to_1(t_push_swap *p)
 	return (1);
 }
 
-static int	check_asort(t_number *lst)
+static int	check_asort(t_push_swap *p, t_number *lst, int num_lst)
 {
 	int	tmp;
+	int	i;
 
 	if (lst)
 	{
 		tmp = lst->n;
 		lst = lst->next;
-		while (lst)
+		i = -1;
+		while (++i < p->nb_numbers[num_lst])
 		{
 			if (tmp < lst->n)
 				return (0);
@@ -50,15 +54,17 @@ static int	check_asort(t_number *lst)
 	return (1);
 }
 
-static int	check_sort(t_number *lst)
+static int	check_sort(t_push_swap *p, t_number *lst, int num_lst)
 {
 	int	tmp;
+	int	i;
 
 	if (lst)
 	{
 		tmp = lst->n;
 		lst = lst->next;
-		while (lst)
+		i = -1;
+		while (++i < p->nb_numbers[num_lst])
 		{
 			if (tmp > lst->n)
 				return (0);
@@ -69,53 +75,31 @@ static int	check_sort(t_number *lst)
 	return (1);
 }
 
+// modifier cette fonction une fois le sorte convenablement installé pour optimiser les 3 plus gros nombres de p->a
+
 static int	check_list(t_push_swap *p)
 {
-	int	size_lst1;
-	int	size_lst2;
-
-	size_lst1 = listsize(p->a);
-	size_lst2 = listsize(p->b);
-	if (!size_lst2)
-	{
-		p->dir = 0;
-		return (check_sort(p->a));
-	}
-	else if (!size_lst1)
-	{
-		p->dir = 1;
-		return (0);
-	}
+	if (!p->nb_numbers[A])
+		return (check_sort(p, p->a, A));
+	else if (!p->nb_numbers[B])
+		return (asort_list_b(p));
 	return (0);
 }
 
 void	process(t_push_swap *p)
 {
-	p->nub_numbers = listsize(p->a);
+	int	i;
+
+	i = -1;
 	while (!check_list(p))
 	{
-		if (check_sort(p->a) && check_asort(p->b) \
+		if (check_sort(p, p->a, A) && check_asort(p, p->b, B) \
 			&& check_2_to_1(p))
-		{
-			while (p->b)
-			{
+			while (p->nb_numbers[B])
 				switch_number(p, &p->b, &p->a, 'a');
-			}
-		}
 		else
-		{
-			ft_memset(p->action, CHAR_MAX, sizeof(int) * 4);
-			if (p->a)
-				p->a->last = last_list(p->a);
-			if (p->b)
-				p->b->last = last_list(p->b);
-			if (p->a && p->a->next)
-				p->a->next->last = p->a->last;
-			if (p->b && p->b->next)
-				p->b->next->last = p->b->last;
 			treatment_list(p);
-		}
-	// print_lst(p->a, p->b);
+	print_lst(p);
 	}
-	 print_lst(p->a, p->b);
+	trash_program(p, ERROR, "exit\n");
 }

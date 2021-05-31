@@ -6,37 +6,11 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:29:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/30 18:09:30 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 20:00:46 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static int	check_duplicate(t_push_swap *p, t_number *lst, t_number *check)
-{
-	while (lst)
-	{
-		if (lst->n == check->n)
-		{
-			free(check);
-			trash_program(p, ERROR, "Number duplicate\n");
-		}
-		lst = lst->next;
-	}
-	return (0);
-}
-
-static void	add_list(t_push_swap *p, int n)
-{
-	t_number	*number;
-
-	number = ft_calloc(sizeof(t_number), 1);
-	if (!number)
-		trash_program(p, ERROR, "Allocation failed\n");
-	number->n = n;
-	check_duplicate(p, p->a, number);
-	list_add_back(&(p->a), number);
-}
 
 static int	is_number(char *str)
 {
@@ -56,19 +30,50 @@ static int	is_number(char *str)
 	return (1);
 }
 
-int	numbers_to_list(t_push_swap *p, char **tab, int n)
+static int	check_duplicate(t_push_swap *p, t_number *lst, t_number *check)
 {
-	int		i;
-	long	number;
+	int	i;
 
 	i = -1;
-	while (++i < n)
+	while (++i < p->nb_numbers[A])
 	{
-		number = ft_atoi(tab[i]);
-		if (is_number(tab[i]) && number <= INT_MAX && number >= INT_MIN)
+		if (lst->n == check->n)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
+}
+
+static void	add_list(t_push_swap *p, int n)
+{
+	t_number	*number;
+
+	number = ft_calloc(sizeof(t_number), 1);
+	if (!number)
+		trash_program(p, ERROR, "Allocation failed\n");
+	number->n = n;
+	if (check_duplicate(p, p->a, number))
+	{
+		free(number);
+		trash_program(p, ERROR, "Number duplicate\n");
+	}
+	list_add_back(p, &(p->a), number, A);
+}
+
+int	numbers_to_list(t_push_swap *p, char **tab, int n)
+{
+	long	number;
+
+	p->nb_numbers[A] = -1;
+	while (++p->nb_numbers[A] < n)
+	{
+		number = ft_atoi(tab[p->nb_numbers[A]]);
+		if (is_number(tab[p->nb_numbers[A]]) \
+			&& number <= INT_MAX && number >= INT_MIN)
 			add_list(p, number);
 		else
 			trash_program(p, ERROR, "Out of limits number\n");
 	}
+	p->a->previous = last_list(p, p->a, A);
 	return (0);
 }

@@ -6,28 +6,47 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/30 18:56:04 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 20:07:40 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_lst(t_number *l1, t_number *l2)
+void	print_lst(t_push_swap *p)
 {
-	printf("-----------------------\n");
-	printf("\nLIST 1\n");
-	while (l1)
+	t_number	*l1;
+	t_number	*l2;
+	int			i;
+	dprintf(2, "-----------------------\n");
+	dprintf(2, "\nLIST 1\n");
+	l1 = p->a;
+	l2 = p->b;
+	i = -1;
+	while (++i < p->nb_numbers[A])
 	{
-		printf("%d\n", l1->n);
+		dprintf(2, "%d\n", l1->n);
 		l1 = l1->next;
 	}
-	printf("\nLIST 2\n");
-	while (l2)
+	dprintf(2, "\nLIST 2\n");
+	i = -1;
+	while (++i < p->nb_numbers[B])
 	{
-		printf("%d\n", l2->n);
+		dprintf(2, "%d\n", l2->n);
 		l2 = l2->next;
 	}
-	printf("------------------------\n");
+	dprintf(2, "------------------------\n");
+	trash_program(p, ERROR, "fuck\n");
+}
+
+static void	init_push_swap(t_push_swap *p)
+{
+	p->action = ft_calloc(sizeof(int), 5);
+	p->max = ft_calloc(sizeof(t_number *), 3);
+	p->min = ft_calloc(sizeof(t_number *), 3);
+	p->nb_numbers = ft_calloc(sizeof(int), 2);
+	if (!p->action || !p->max \
+		|| !p->min || !p->nb_numbers)
+		trash_program(p, ERROR, "Allocation failed\n");
 }
 
 int	main(int ac, char **args)
@@ -35,11 +54,7 @@ int	main(int ac, char **args)
 	t_push_swap	push_swap;
 
 	ft_bzero(&push_swap, sizeof(t_push_swap));
-	push_swap.action = ft_calloc(sizeof(int), 5);
-	push_swap.max = ft_calloc(sizeof(t_number *), 3);
-	push_swap.min = ft_calloc(sizeof(t_number *), 3);
-	if (!push_swap.action || !push_swap.max || !push_swap.min)
-		trash_program(&push_swap, ERROR, "Allocation failed\n");
+	init_push_swap(&push_swap);
 	if (ac > 2)
 	{
 		numbers_to_list(&push_swap, args + 1, ac - 1);

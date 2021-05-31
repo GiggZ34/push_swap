@@ -6,92 +6,107 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:59:39 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/30 20:38:35 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 20:00:14 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-/*
-static int	nb_actions_list_a(t_push_swap *p, int id, int n_actions)
+
+static void	single_action(t_number **lst, char dir, char alpha)
 {
-	t_number	*number;
-	int			i;
-	int			id_tmp;
-	int			tmp_diff;
+	char	print[5];
 
-	number = p->a;
-	tmp_diff = INT_MAX;
-	id_tmp = 0;
-	i = -1;
-	while (++i < n_actions)
+	if (dir == R)
 	{
-		if (id == RR || id == SRR)
-		{
-			number = number->previous;
-			if (ft_abs(p->a->n - number->n) < tmp_diff)
-			{
-				tmp_diff = ft_abs(p->a->n - number->n);
-				id_tmp = i;
-			}
-		}
-		else if (id == R || id == SR)
-		{
-			number = number->next;
-			if (ft_abs(p->a->n - number->n) < tmp_diff)
-			{
-				tmp_diff = ft_abs(p->a->n - number->n);
-				id_tmp = i;
-			}
-		}
-	}
-	return (id_tmp);
-}
-
-static void	exect_action(t_push_swap *p, int id, int n_actions)
-{
-	int	i;
-
-	if (id == SR || id == SRR)
-	{
-		swap(&p->a, "sa\n");
-		n_actions--;
-	}
-	i = -1;
-	while (++i < n_actions)
-	{
-		if (id == RR | id == SRR)
-			last_to_first(&p->b, "rrb\n");
-		else
-			first_to_last(&p->b, "rb\n");
-	}
-	switch_number(p, &p->a, &p->b, 'b');
-}
-*/
-int	treatment_list(t_push_swap *p)
-{
-//	int	id;
-
-	if (listsize(p->b) >= 2)
-	{
-		search_actions(p);
-//		id = generate_actions(p);
-//		exect_action(p, id, p->action[id]);
+		print[0] = 'r';
+		print[1] = alpha;
+		print[2] = '\n';
+		print[3] = '\0';
+		print[4] = '\0';
+		first_to_last(lst, print);
 	}
 	else
 	{
+		print[0] = 'r';
+		print[1] = 'r';
+		print[2] = alpha;
+		print[3] = '\n';
+		print[4] = '\0';
+		last_to_first(lst, print);
+	}
+}
+
+static void	double_actions(t_push_swap *p)
+{
+	if (p->action[DIR_A] == R)
+	{
+		first_to_last(&p->a, "r");
+		first_to_last(&p->b, "r\n");
+	}
+	else
+	{
+		last_to_first(&p->a, "r");
+		last_to_first(&p->b, "rr\n");
+	}
+}
+
+static void	exect_action(t_push_swap *p)
+{
+	while (p->action[NB_A] > 0 || p->action[NB_B] > 0)
+	{
+		if (p->action[DIR_A] == p->action[DIR_B] \
+			&& p->action[NB_A] > 0 && p->action[NB_B] > 0)
+			double_actions(p);
+		else
+		{
+			if (p->action[NB_A] > 0)
+				single_action(&p->a, p->action[DIR_A], 'a');
+			if (p->action[NB_B] > 0)
+				single_action(&p->b, p->action[DIR_B], 'b');
+		}
+		p->action[NB_A]--;
+		p->action[NB_B]--;
+	}
+	if (p->a)
+		switch_number(p, &p->a, &p->b, 'b');
+}
+
+int	treatment_list(t_push_swap *p)
+{
+	if (!p->b)
+	{
 		switch_number(p, &p->a, &p->b, 'b');
 		switch_number(p, &p->a, &p->b, 'b');
-		if (p->b->n < p->b->next->n)
-			swap(&p->b, "sb\n");
+	}
+	else
+	{
+		search_actions(p);
+		exect_action(p);
 	}
 	return (0);
 }
 
-
-
-
-void	asort_test(t_push_swap *p)
+int	asort_list_b(t_push_swap *p)
 {
+	t_number	*l;
+	int			id;
+
+	l = p->b;
+	id = search_number(p->b, p->max[1]->n);
+	while (l->n < p->max[1]->n)
+	{
+		id++;
+		l = l->next;
+	}
 	while (p->b->n != p->max[1]->n)
-		last_to_first(&p->b, "rrb\n");
+	{
+		if (id <= p->nb_numbers[B] - id)
+			last_to_first(&p->b, "rrb\n");
+		else
+			first_to_last(&p->b, "rb\n");
+	}
+	while (p->b)
+		switch_number(p, &p->b, &p->a, 'a');
+	// print_lst(p->a, p->b);
+	return (0);
 }
