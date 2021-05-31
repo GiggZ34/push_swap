@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/31 20:07:40 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 20:09:50 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	print_lst(t_push_swap *p)
 	t_number	*l1;
 	t_number	*l2;
 	int			i;
+
 	dprintf(2, "-----------------------\n");
 	dprintf(2, "\nLIST 1\n");
 	l1 = p->a;

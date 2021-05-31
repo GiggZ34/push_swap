@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 13:03:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/31 19:57:45 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 20:35:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,16 @@ static int	search_location(t_push_swap *p, int n)
 	int			id;
 
 	lst = p->b;
-	id = 1;
 	if (lst->n < n && lst->previous->n > n)
 		return (0);
 	else if (p->max[1] && n > p->max[1]->n)
 		return (search_number(p->b, p->max[1]->n));
 	else if (p->min[1] && n < p->min[1]->n)
 		return (search_number(p->b, p->min[1]->n) + 1);
-	while (lst->next && !(lst->n > n && lst->next->n < n))
-	{
-		id++;
+	id = 0;
+	while (++id < p->nb_numbers[B] && lst->next \
+		&& !(lst->n > n && lst->next->n < n))
 		lst = lst->next;
-	}
 	return (id);
 }
 
@@ -81,7 +79,8 @@ void	search_move(t_push_swap *p, int *tmp_actions)
 	a = p->a;
 	move_a[0] = R;
 	move_a[1] = -1;
-	while (a && ((tmp_actions[TOTAL] < 0 || move_a[1] < tmp_actions[TOTAL]) \
+	while (move_a[0] > p->nb_numbers[A] && a && \
+		((tmp_actions[TOTAL] < 0 || move_a[1] < tmp_actions[TOTAL]) \
 		&& move_a[0] != RR))
 	{
 		if (++move_a[1] >= tmp_actions[TOTAL] && tmp_actions[TOTAL] >= 0 \

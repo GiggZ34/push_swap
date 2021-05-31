@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:20:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/31 19:51:27 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/31 20:36:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	switch_number(t_push_swap *p, t_number **l1, t_number **l2, char c)
 		p->max[i] = number;
 	if (!p->min[i] || p->min[i]->n > number->n)
 		p->min[i] = number;
+	number->next->previous = number->previous;
 	*l1 = number->next;
 	list_add_front(l2, number);
 	p->nb_numbers[i]++;
-	i = ft_abs(i - 1);
-	p->nb_numbers[i]--;
+	p->nb_numbers[ft_abs(i - 1)]--;
 	write(1, "p", 1);
 	write(1, &c, 1);
 	write(1, "\n", 1);
