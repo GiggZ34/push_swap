@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:20:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/31 19:54:44 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 02:33:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	list_add_front(t_number **begin, t_number *new)
 {
 	if (*begin)
 	{
-		new->next = *begin;
 		new->previous = (*begin)->previous;
+		new->next = *begin;
 		(*begin)->previous = new;
 	}
 	*begin = new;

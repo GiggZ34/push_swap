@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/31 20:09:50 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 01:49:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	print_lst(t_push_swap *p)
 		l2 = l2->next;
 	}
 	dprintf(2, "------------------------\n");
-	trash_program(p, ERROR, "fuck\n");
 }
 
 static void	init_push_swap(t_push_swap *p)

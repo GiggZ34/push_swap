@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/31 20:07:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 01:29:37 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ size_t		ft_strlen(const char *s);
 void		*ft_calloc(size_t count, size_t size);
 int			ft_abs(int n);
 int			trash_program(t_push_swap *p, int error_code, const char *msg);
-int			switch_number(t_push_swap *p, t_number **l1, t_number **l2, char c);
+int			switch_number(t_push_swap *p, t_number **s, t_number **d, char *c);
 void		first_to_last(t_number **begin, const char *cmd);
 void		last_to_first(t_number **begin, const char *cmd);
 int			search_number(t_number *list, int n);

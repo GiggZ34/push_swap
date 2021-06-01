@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treatment_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:59:39 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/31 20:36:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 01:58:58 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,20 @@ static void	single_action(t_number **lst, char dir, char alpha)
 {
 	char	print[5];
 
+	print[0] = 'r';
+	print[4] = '\0';
 	if (dir == R)
 	{
-		print[0] = 'r';
 		print[1] = alpha;
 		print[2] = '\n';
 		print[3] = '\0';
-		print[4] = '\0';
 		first_to_last(lst, print);
 	}
 	else
 	{
-		print[0] = 'r';
 		print[1] = 'r';
 		print[2] = alpha;
 		print[3] = '\n';
-		print[4] = '\0';
 		last_to_first(lst, print);
 	}
 }
@@ -68,15 +66,15 @@ static void	exect_action(t_push_swap *p)
 		p->action[NB_B]--;
 	}
 	if (p->a)
-		switch_number(p, &p->a, &p->b, 'b');
+		switch_number(p, &p->a, &p->b, "pb\n");
 }
 
 int	treatment_list(t_push_swap *p)
 {
 	if (!p->nb_numbers[B])
 	{
-		switch_number(p, &p->a, &p->b, 'b');
-		switch_number(p, &p->a, &p->b, 'b');
+		switch_number(p, &p->a, &p->b, "pb\n");
+		switch_number(p, &p->a, &p->b, "pb\n");
 	}
 	else
 	{
@@ -106,7 +104,8 @@ int	asort_list_b(t_push_swap *p)
 			first_to_last(&p->b, "rb\n");
 	}
 	while (p->b)
-		switch_number(p, &p->b, &p->a, 'a');
-	// print_lst(p);
+		switch_number(p, &p->b, &p->a, "pa\n");
+	print_lst(p);
+	trash_program(p, ERROR, "fuck\n");
 	return (0);
 }
