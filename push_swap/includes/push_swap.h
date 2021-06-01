@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 01:29:37 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 16:24:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		last_to_first(t_number **begin, const char *cmd);
 int			search_number(t_number *list, int n);
 t_number	*last_list(t_push_swap *p, t_number *lst, int num_lst);
 void		swap(t_number **begin, const char *cmd);
-void		list_add_front(t_number **begin, t_number *new);
+void		list_add_front(t_number **b, t_number *new);
 void		list_add_back(t_push_swap *p, t_number **b, t_number *new, int lst);
 long		ft_atoi(const char *str);
 int			search_actions(t_push_swap *p);

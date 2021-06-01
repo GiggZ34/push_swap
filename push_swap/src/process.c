@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:06:20 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 01:48:52 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 20:03:45 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ static int	check_sort(t_push_swap *p, t_number *lst, int num_lst)
 
 static int	check_list(t_push_swap *p)
 {
-	if (p->nb_numbers[A])
-		return (check_sort(p, p->a, A));
+//	if (p->nb_numbers[A])
+//		return (check_sort(p, p->a, A));
 	if (!p->nb_numbers[A])
 		return (asort_list_b(p));
 	return (0);
@@ -96,7 +96,7 @@ void	process(t_push_swap *p)
 				switch_number(p, &p->b, &p->a, "pa\n");
 		else
 			treatment_list(p);
-	print_lst(p);
+
+	// print_lst(p);
 	}
-//	trash_program(p, ERROR, "exit\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treatment_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:59:39 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 01:58:58 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 20:09:47 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,12 @@ int	asort_list_b(t_push_swap *p)
 	while (p->b->n != p->max[1]->n)
 	{
 		if (id <= p->nb_numbers[B] - id)
-			last_to_first(&p->b, "rrb\n");
-		else
 			first_to_last(&p->b, "rb\n");
+		else
+			last_to_first(&p->b, "rrb\n");
 	}
 	while (p->b)
 		switch_number(p, &p->b, &p->a, "pa\n");
-	print_lst(p);
 	trash_program(p, ERROR, "fuck\n");
 	return (0);
 }

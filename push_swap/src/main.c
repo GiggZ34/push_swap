@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 01:49:21 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 17:15:18 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,18 @@ void	print_lst(t_push_swap *p)
 	l1 = p->a;
 	l2 = p->b;
 	i = -1;
-	while (++i < p->nb_numbers[A])
+	while (p->nb_numbers[A] && ++i < p->nb_numbers[A])
 	{
 		dprintf(2, "%d\n", l1->n);
 		l1 = l1->next;
 	}
 	dprintf(2, "\nLIST 2\n");
 	i = -1;
-	while (++i < p->nb_numbers[B])
+	while (p->nb_numbers[B] && ++i < p->nb_numbers[B])
 	{
 		dprintf(2, "%d\n", l2->n);
 		l2 = l2->next;
 	}
-	dprintf(2, "------------------------\n");
 }
 
 static void	init_push_swap(t_push_swap *p)

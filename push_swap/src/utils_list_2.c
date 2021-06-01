@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:20:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 02:33:05 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 16:28:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ void	swap(t_number **begin, const char *cmd)
 
 void	list_add_front(t_number **begin, t_number *new)
 {
+	new->next = new;
+	new->previous = new;
 	if (*begin)
 	{
 		new->previous = (*begin)->previous;
+		(*begin)->previous->next = new;
 		new->next = *begin;
 		(*begin)->previous = new;
 	}

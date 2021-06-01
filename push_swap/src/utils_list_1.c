@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:20:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 02:20:48 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/01 18:57:15 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	switch_number(t_push_swap *p, t_number **l1, t_number **l2, char *cmd)
 		*l1 = NULL;
 	else
 	{
+		(*l1)->next->previous = number->previous;
+		(*l1)->previous->next = number->next;
 		*l1 = (*l1)->next;
-		(*l1)->previous = (*l1)->previous->previous;
 	}
 	if (!p->max[i] || p->max[i]->n < number->n)
 		p->max[i] = number;
@@ -39,12 +40,12 @@ int	switch_number(t_push_swap *p, t_number **l1, t_number **l2, char *cmd)
 
 void	first_to_last(t_number **begin, const char *cmd)
 {
-	*begin = (*begin)->previous;
+	*begin = (*begin)->next;
 	write(1, cmd, ft_strlen(cmd));
 }
 
 void	last_to_first(t_number **begin, const char *cmd)
 {
-	*begin = (*begin)->next;
+	*begin = (*begin)->previous;
 	write(1, cmd, ft_strlen(cmd));
 }
