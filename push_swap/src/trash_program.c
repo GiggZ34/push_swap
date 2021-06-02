@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trash_program.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:18:12 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 01:33:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/02 11:22:35 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	clear_list(t_push_swap *p, t_number **begin, int alpha)
 int	trash_program(t_push_swap *p, int error_code, const char *msg)
 {
 	clear_list(p, &(p->a), A);
-//	clear_list(p, &(p->b), B);
+	clear_list(p, &(p->b), B);
 	free(p->action);
 	free(p->min);
 	free(p->max);

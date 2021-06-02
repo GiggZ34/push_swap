@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 16:24:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/02 11:55:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_push_swap
 	int			*action;
 	t_number	**max;
 	t_number	**min;
+	t_number	**bigger_a;
 	t_number	*a;
 	t_number	*b;
 	int			*nb_numbers;
@@ -65,6 +66,8 @@ typedef enum e_lst
 }t_lst;
 
 int			numbers_to_list(t_push_swap *p, char **tab, int n);
+void		add_bigger_number(t_push_swap *p, t_number *n);
+int			is_bigger(t_push_swap *p, t_number *n);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memset(void *b, int c, size_t len);
 void		*ft_memcpy(void *dst, const void *src, size_t n);

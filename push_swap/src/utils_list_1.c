@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:20:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 18:57:15 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/02 11:58:02 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,39 @@ void	last_to_first(t_number **begin, const char *cmd)
 {
 	*begin = (*begin)->previous;
 	write(1, cmd, ft_strlen(cmd));
+}
+
+void	add_bigger_number(t_push_swap *p, t_number *n)
+{
+	t_number	*tmp;
+
+	tmp = NULL;
+	if (!p->bigger_a[0] || p->bigger_a[0]->n < n->n)
+	{
+		tmp = p->bigger_a[0];
+		p->bigger_a[0] = n;
+	}
+	else if (!p->bigger_a[1] || p->bigger_a[1]->n < n->n)
+	{
+		tmp = p->bigger_a[1];
+		p->bigger_a[1] = n;
+	}
+	else if (!p->bigger_a[2] || p->bigger_a[2]->n < n->n)
+	{
+		tmp = p->bigger_a[2];
+		p->bigger_a[2] = n;
+	}
+	if (tmp)
+		add_bigger_number(p, tmp);
+}
+
+int	is_bigger(t_push_swap *p, t_number *n)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+		if (p->bigger_a[i]->n == n->n)
+			return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:29:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/31 20:00:46 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/02 11:52:28 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	add_list(t_push_swap *p, int n)
 		free(number);
 		trash_program(p, ERROR, "Number duplicate\n");
 	}
+	add_bigger_number(p, number);
 	list_add_back(p, &(p->a), number, A);
 }
 

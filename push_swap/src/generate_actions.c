@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate_actions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 13:03:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 02:14:19 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/02 12:02:15 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ static void	search_move(t_push_swap *p, int *tmp_actions)
 			move_a[0] = RR;
 			move_a[1] = 0;
 		}
-		search_move_b(p, a, tmp_actions, move_a);
+		if (!is_bigger(p, a))
+			search_move_b(p, a, tmp_actions, move_a);
 		if (move_a[0] == R)
 			a = a->next;
 		else

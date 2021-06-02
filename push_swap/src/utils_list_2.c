@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:20:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 16:28:21 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/02 16:39:32 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ void	swap(t_number **begin, const char *cmd)
 	t_number	*n2;
 
 	n1 = *begin;
-	n2 = n1->next;
-	n1->next = n2->next;
-	n1->previous = n2;
+	n2 = (*begin)->next;
+	n1->previous->next = n2;
+	n2->next->previous = n1;
 	n2->previous = n1->previous;
+	n1->previous = n2;
+	n1->next = n2->next;
 	n2->next = n1;
 	*begin = n2;
 	write(1, cmd, ft_strlen(cmd));

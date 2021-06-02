@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:59:39 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/01 20:09:47 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/02 17:09:33 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,21 @@ static void	exect_action(t_push_swap *p)
 
 int	treatment_list(t_push_swap *p)
 {
+	int	nb;
+
+	nb = 0;
 	if (!p->nb_numbers[B])
 	{
-		switch_number(p, &p->a, &p->b, "pb\n");
-		switch_number(p, &p->a, &p->b, "pb\n");
+		while (nb < 2)
+		{
+			if (!is_bigger(p, p->a))
+			{
+				switch_number(p, &p->a, &p->b, "pb\n");
+				nb++;
+			}
+			else
+				first_to_last(&p->a, "ra\n");
+		}
 	}
 	else
 	{
@@ -103,8 +114,5 @@ int	asort_list_b(t_push_swap *p)
 		else
 			last_to_first(&p->b, "rrb\n");
 	}
-	while (p->b)
-		switch_number(p, &p->b, &p->a, "pa\n");
-	trash_program(p, ERROR, "fuck\n");
-	return (0);
+	return (1);
 }
