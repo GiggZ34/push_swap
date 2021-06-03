@@ -6,23 +6,28 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:29:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/02 11:52:28 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 11:37:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	is_whitespace(char c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (1);
+	return (0);
+}
 
 static int	is_number(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] == ' ')
-		i++;
 	if ((str[i] == '-' && !ft_isdigit(str[i + 1])) \
 		|| (str[i] != '-' && !ft_isdigit(str[i])))
 		return (0);
-	while (str[++i])
+	while (str[++i] && !is_whitespace(str[i]))
 	{
 		if (!ft_isdigit(str[i]))
 			return (0);
@@ -64,16 +69,27 @@ static void	add_list(t_push_swap *p, int n)
 int	numbers_to_list(t_push_swap *p, char **tab, int n)
 {
 	long	number;
+	int		i;
 
-	p->nb_numbers[A] = -1;
-	while (++p->nb_numbers[A] < n)
+	i = -1;
+	while (++i < n)
 	{
-		number = ft_atoi(tab[p->nb_numbers[A]]);
-		if (is_number(tab[p->nb_numbers[A]]) \
-			&& number <= INT_MAX && number >= INT_MIN)
-			add_list(p, number);
-		else
-			trash_program(p, ERROR, "Out of limits number\n");
+		while (*(tab[i]))
+		{
+			while (*(tab[i]) && is_whitespace(*(tab[i])))
+				tab[i]++;
+			number = ft_atoi(tab[i]);
+			if (*tab[i] && is_number(tab[i]) \
+				&& number <= INT_MAX && number >= INT_MIN)
+			{
+				add_list(p, number);
+				p->nb_numbers[A]++;
+				while (*(tab[i]) && ft_isdigit(*(tab[i])))
+					tab[i]++;
+			}
+			else if (*tab[i])
+				trash_program(p, ERROR, "Out of limits integer\n");
+		}
 	}
 	p->a->previous = last_list(p, p->a, A);
 	return (0);

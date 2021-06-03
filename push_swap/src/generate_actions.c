@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 13:03:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/02 12:02:15 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 11:33:57 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ static void	search_move(t_push_swap *p, int *tmp_actions)
 			a = a->next;
 		else
 			a = a->previous;
-		if (!tmp_actions[TOTAL])
-			return ;
 	}
 }
 

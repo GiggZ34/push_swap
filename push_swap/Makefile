@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/27 13:07:50 by grivalan          #+#    #+#              #
-#    Updated: 2021/05/30 19:29:54 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/06/03 12:41:47 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,45 +26,54 @@ SUR			=	\033[7m
 END			=	\033[0m
 
 NAME =		push_swap
+OBJS_PATH =	.objs
+SRCS_PATH =	src
+SRCS_FILES =	main.c\
+				numbers_to_list.c\
+				trash_program.c\
+				utils_list_1.c\
+				utils_list_2.c\
+				process.c\
+				process_sort.c\
+				generate_actions.c\
+				treatment_list.c\
+				ft_calloc.c\
+				ft_atoi.c\
+				ft_bzero.c\
+				ft_strlen.c\
+				ft_isdigit.c\
+				ft_strncmp.c\
+				ft_memcpy.c\
+				ft_memset.c\
+				ft_abs.c\
 
-SRCS =		src/main.c\
-			src/numbers_to_list.c\
-			src/trash_program.c\
-			src/utils_list_1.c\
-			src/utils_list_2.c\
-			src/process.c\
-			src/generate_actions.c\
-			src/treatment_list.c\
-			src/ft_calloc.c\
-			src/ft_atoi.c\
-			src/ft_bzero.c\
-			src/ft_strlen.c\
-			src/ft_isdigit.c\
-			src/ft_memcpy.c\
-			src/ft_memset.c\
-			src/ft_abs.c\
+OBJS_FILES =	$(SRCS_FILES:.c=.o)
+
+INC_PATH =	includes
+INC_FILES = push_swap.h
+
+SRCS = $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
+OBJS = $(addprefix $(OBJS_PATH)/, $(OBJS_FILES))
 
 CC = gcc
 
 CFLAGS =	-Wall -Wextra -Werror
 
-INCLUDES =	includes
 
-OBJS =		$(SRCS:.c=.o)
-
-%.o: %.c includes/push_swap.h
-			@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES)
+$(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c $(INC_PATH)/$(INC_FILES)
+			@mkdir -p $(OBJS_PATH)
+			@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_PATH)
 			@printf "$(ERASE)$(YELLOW)$<$(END)"
 
 $(NAME):	$(OBJS)
 		@printf "$(ERASE)";
-		@$(CC) -g3 -fsanitize=address -o $(NAME) $(OBJS) -I $(INCLUDES)
+		@$(CC) -o $(NAME) $(OBJS) -I $(INC_PATH)
 		@printf "$(ERASE)$(GREEN)Push Swap\t\t->\t\tCOMPILED$(END)\n"
 
 all :		$(NAME)
 
 clean :
-		@rm -rf $(OBJS)
+		@rm -rf $(OBJS_PATH)
 		@printf "$(ERASE)$(RED)Push Swap\t\t->\t\tDESTROY$(END)\n"
 
 fclean :	clean
@@ -72,8 +81,8 @@ fclean :	clean
 
 re : fclean all
 
-norme:
-			@norminette -R CheckForbiddenSourceHeader $(SRCS) $(INCLUDES)
+norm:
+			@norminette $(SRCS) $(INC_PATH)/$(INC_FILES)
 			@printf "$(YELLOW)norminette push_swap\t->\tfinish$(END)\n"
 
-.PHONY : all clean fclean re norme
+.PHONY : all clean fclean re norm

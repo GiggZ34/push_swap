@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/02 11:55:21 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 11:36:10 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_push_swap
 	t_number	*a;
 	t_number	*b;
 	int			*nb_numbers;
+	int			error_return;
 }t_push_swap;
 
 typedef enum e_error_code
@@ -74,6 +75,7 @@ void		*ft_memcpy(void *dst, const void *src, size_t n);
 int			ft_isdigit(int c);
 size_t		ft_strlen(const char *s);
 void		*ft_calloc(size_t count, size_t size);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_abs(int n);
 int			trash_program(t_push_swap *p, int error_code, const char *msg);
 int			switch_number(t_push_swap *p, t_number **s, t_number **d, char *c);
@@ -89,7 +91,8 @@ int			search_actions(t_push_swap *p);
 void		process(t_push_swap *p);
 int			treatment_list(t_push_swap *p);
 int			asort_list_b(t_push_swap *p);
-
-void		print_lst(t_push_swap *p);
+int			check_asort(t_number *lst);
+int			check_sort(t_push_swap *p, t_number **lst);
+int			turn_list(t_push_swap *p, t_number **lst, char alpha, int end);
 
 #endif

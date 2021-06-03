@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:59:39 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/02 17:09:33 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 11:36:50 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,26 +93,4 @@ int	treatment_list(t_push_swap *p)
 		exect_action(p);
 	}
 	return (0);
-}
-
-int	asort_list_b(t_push_swap *p)
-{
-	t_number	*l;
-	int			id;
-
-	l = p->b;
-	id = search_number(p->b, p->max[1]->n);
-	while (l->n < p->max[1]->n)
-	{
-		id++;
-		l = l->next;
-	}
-	while (p->b->n != p->max[1]->n)
-	{
-		if (id <= p->nb_numbers[B] - id)
-			first_to_last(&p->b, "rb\n");
-		else
-			last_to_first(&p->b, "rrb\n");
-	}
-	return (1);
 }
