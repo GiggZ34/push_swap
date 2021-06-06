@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 16:06:20 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/03 11:35:01 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/06 14:06:59 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ static int	sort_list(t_push_swap *p, t_number **lst, int num_lst)
 			last = last_list(p, *lst, num_lst);
 			if ((*lst)->next && (*lst)->n > (*lst)->next->n \
 				&& last->n == p->bigger_a[0]->n)
-				swap(lst, "sa\n");
+				swap(lst, "sa\n", 1);
 			else if ((*lst)->n < last->n && (*lst)->next \
 				&& last->n < (*lst)->next->n)
-				last_to_first(lst, "rra\n");
+				last_to_first(lst, "rra\n", 1);
 			else if ((*lst)->n > last->n)
-				first_to_last(lst, "ra\n");
+				first_to_last(lst, "ra\n", 1);
 		}
 		return (1);
 	}
@@ -84,5 +84,5 @@ void	process(t_push_swap *p)
 	while (!check_list(p))
 		treatment_list(p);
 	while (p->nb_numbers[B])
-		switch_number(p, &p->b, &p->a, "pa\n");
+		switch_number(p, &p->b, &p->a, 1);
 }

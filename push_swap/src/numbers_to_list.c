@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:29:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/03 11:37:04 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/06 14:36:28 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ static void	add_list(t_push_swap *p, int n)
 
 	number = ft_calloc(sizeof(t_number), 1);
 	if (!number)
-		trash_program(p, ERROR, "Allocation failed\n");
+		trash_program(p, ERROR, "\033[33mAllocation failed\033[0m\n");
 	number->n = n;
 	if (check_duplicate(p, p->a, number))
 	{
 		free(number);
-		trash_program(p, ERROR, "Number duplicate\n");
+		trash_program(p, ERROR, "\033[33mNumber duplicate\033[0m\n");
 	}
 	add_bigger_number(p, number);
 	list_add_back(p, &(p->a), number, A);
@@ -84,11 +84,11 @@ int	numbers_to_list(t_push_swap *p, char **tab, int n)
 			{
 				add_list(p, number);
 				p->nb_numbers[A]++;
-				while (*(tab[i]) && ft_isdigit(*(tab[i])))
+				while (*(tab[i]) && (*(tab[i]) == '-' || ft_isdigit(*(tab[i]))))
 					tab[i]++;
 			}
 			else if (*tab[i])
-				trash_program(p, ERROR, "Out of limits integer\n");
+				parsing_error(p, n);
 		}
 	}
 	p->a->previous = last_list(p, p->a, A);

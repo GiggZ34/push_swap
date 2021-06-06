@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 11:35:13 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/03 11:37:34 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/06 14:02:19 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ int	turn_list(t_push_swap *p, t_number **lst, char alpha, int end)
 		{
 			cmd[1] = alpha;
 			cmd[2] = '\n';
-			first_to_last(lst, cmd);
+			first_to_last(lst, cmd, 1);
 		}
 		else
 		{
 			cmd[1] = 'r';
 			cmd[2] = alpha;
 			cmd[3] = '\n';
-			last_to_first(lst, cmd);
+			last_to_first(lst, cmd, 1);
 		}
 	}
 	return (check_sort(p, lst) + 1 == p->nb_numbers[A]);
@@ -107,9 +107,9 @@ int	asort_list_b(t_push_swap *p)
 	while (p->b->n != p->max[1]->n)
 	{
 		if (id <= p->nb_numbers[B] - id)
-			first_to_last(&p->b, "rb\n");
+			first_to_last(&p->b, "rb\n", 1);
 		else
-			last_to_first(&p->b, "rrb\n");
+			last_to_first(&p->b, "rrb\n", 1);
 	}
 	return (1);
 }

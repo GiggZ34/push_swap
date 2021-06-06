@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 13:03:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/03 11:33:57 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 13:16:49 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	search_move_b(t_push_swap *p, t_number *a, int *action, int *move_a)
 		total[ft_abs(move_a[0] - 1)] += move_a[1];
 		return (define_actions(action, total, move_a, move_b));
 	}
-	return (trash_program(p, ERROR, "Program failed\n"));
+	return (trash_program(p, ERROR, "\033[33mProgram failed\033[0m\n"));
 }
 
 static void	search_move(t_push_swap *p, int *tmp_actions)

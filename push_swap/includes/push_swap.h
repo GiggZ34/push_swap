@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 13:04:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/03 11:36:10 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/06 14:58:54 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_push_swap
 	t_number	*b;
 	int			*nb_numbers;
 	int			error_return;
+	int			print_lst;
 }t_push_swap;
 
 typedef enum e_error_code
@@ -77,13 +78,17 @@ size_t		ft_strlen(const char *s);
 void		*ft_calloc(size_t count, size_t size);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_abs(int n);
+size_t		ft_putnbr_fd(int n, int fd);
 int			trash_program(t_push_swap *p, int error_code, const char *msg);
-int			switch_number(t_push_swap *p, t_number **s, t_number **d, char *c);
-void		first_to_last(t_number **begin, const char *cmd);
-void		last_to_first(t_number **begin, const char *cmd);
+void		clear_list(t_push_swap *p, t_number **begin, int alpha);
+int			parsing_error(t_push_swap *p, int n);
+void		max_min_number(t_push_swap *p, t_number *number, int i);
+int			switch_number(t_push_swap *p, t_number **s, t_number **d, int writ);
+void		first_to_last(t_number **begin, const char *cmd, int print);
+void		last_to_first(t_number **begin, const char *cmd, int print);
 int			search_number(t_number *list, int n);
 t_number	*last_list(t_push_swap *p, t_number *lst, int num_lst);
-void		swap(t_number **begin, const char *cmd);
+void		swap(t_number **begin, const char *cmd, int print);
 void		list_add_front(t_number **b, t_number *new);
 void		list_add_back(t_push_swap *p, t_number **b, t_number *new, int lst);
 long		ft_atoi(const char *str);
@@ -94,5 +99,6 @@ int			asort_list_b(t_push_swap *p);
 int			check_asort(t_number *lst);
 int			check_sort(t_push_swap *p, t_number **lst);
 int			turn_list(t_push_swap *p, t_number **lst, char alpha, int end);
+void		print_lst(t_push_swap *p);
 
 #endif

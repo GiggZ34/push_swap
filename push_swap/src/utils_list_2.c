@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 15:20:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/06/02 16:39:32 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/06/05 19:20:36 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_number	*last_list(t_push_swap *p, t_number *lst, int num_lst)
 	return (lst);
 }
 
-void	swap(t_number **begin, const char *cmd)
+void	swap(t_number **begin, const char *cmd, int print)
 {
 	t_number	*n1;
 	t_number	*n2;
@@ -38,7 +38,8 @@ void	swap(t_number **begin, const char *cmd)
 	n1->next = n2->next;
 	n2->next = n1;
 	*begin = n2;
-	write(1, cmd, ft_strlen(cmd));
+	if (print)
+		write(1, cmd, ft_strlen(cmd));
 }
 
 void	list_add_front(t_number **begin, t_number *new)
